@@ -1,0 +1,44 @@
+.fa-airbnb{
+    color: rgb(255, 75, 87);
+    font-size: 40px;
+}
+.footer{
+  background-color: rgb(223, 223, 223);
+  padding: 5px 0px 10px 0px;
+}
+
+.footer-info-links a{
+    text-decoration: none;
+    color:black;
+}
+.footer-info-social{
+    gap:20px !important;
+}
+
+.card{
+    /* background-color: rgb(165, 38, 81) !important; */
+    border: none !important;
+    margin-top: 20px !important;
+}
+
+.wrapper{
+    background-color: rgb(192, 236, 255);
+    margin: 10px 0px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+.card-img{
+    width: 380px !important;
+    height: 280px !important;
+    border-radius: 10px;
+}
+
+.card-buttons{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.card-buttons button{
+   padding: 5px 30px;
+   border-radius: 5px;
+}

@@ -1,0 +1,29 @@
+.heading{
+    text-align: center;
+    background-color: rgb(175, 225, 238, 250);
+    font-size: 46px;
+    margin-top: 10px;
+
+}
+
+.wrapper:hover{
+  opacity: 0.7;
+}
+.Place-img{
+    width:400px;
+}
+#listing-title{
+     text-align: center;
+    color: black;
+    font-size: 1.3rem;
+    /* background-color: palegreen; */
+    margin: 0;
+   
+}
+#listing-price{
+    text-align: center;
+   color: black;
+   font-size: 1rem;
+   /* background-color: pink; */
+   
+}

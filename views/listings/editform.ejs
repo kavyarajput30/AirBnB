@@ -1,0 +1,87 @@
+<% layout('/layouts/boilerplate') -%>
+<body>
+  <h2>Edit Place</h2>
+  <form
+    action="/listings/<%= a._id%>"
+    method="post"
+    novalidate
+    class="needs-validation"
+  >
+    <div>
+      <label for="title">Title</label>
+      <input
+        type="text"
+        name="listing[title]"
+        id="title"
+        value="<%= a.title %>"
+        required
+      />
+      <div class="invalid-feedback">Please choose valid input</div>
+    </div>
+
+    <br />
+    <br />
+
+    <div>
+      <label for="description">description</label>
+      <textarea
+        name="listing[description]"
+        cols="30"
+        rows="10"
+        id="description"
+        required
+      >
+ <%= a.description %> </textarea
+      >
+      <div class="invalid-feedback">Please choose a valid Input.</div>
+    </div>
+
+    <br />
+    <br />
+    <div>
+      <label for="price">Price</label>
+      <input
+        type="number"
+        id="price"
+        name="listing[price]"
+        value="<%= a.price %>"
+        required
+      />
+      <div class="invalid-feedback">Please choose a valid Input.</div>
+    </div>
+
+    <br />
+    <br />
+
+    <div>
+      <label for="location">Location</label>
+      <input
+        type="text"
+        name="listing[location]"
+        id="location"
+        value="<%= a.location  %>"
+        required
+      />
+      <div class="invalid-feedback">Please choose a valid Input.</div>
+    </div>
+
+    <br />
+    <br />
+
+    <div>
+      <label for="country">Country</label>
+      <input
+        type="text"
+        name="listing[country]"
+        id="country"
+        value=" <%= a.country %>"
+        required
+      />
+      <div class="invalid-feedback">Please choose a valid Input.</div>
+    </div>
+
+    <br />
+    <br />
+    <button>Edit</button>
+  </form>
+</body>
