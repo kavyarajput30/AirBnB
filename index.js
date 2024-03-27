@@ -103,6 +103,7 @@ app.get("/listings/newPlace", (req, res) => {
 //add new listing form submit
 app.post(
   "/listing",
+  validateListing,
   wrapAsync(async (req, res, next) => {
     // let { title, description, price, location, country, image } = req.body;
     let listing = req.body.listing;
@@ -116,9 +117,13 @@ app.post(
 //edit form route where we can edit a particular listing
 app.get(
   "/listings/:id/edit",
+  validateListing,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let a = await Listing.findById(`${id}`);
+    if(!a){
+        throw new ExpressError('Listing not found', 404);
+    }
     res.render("./listings/editform.ejs", { a });
   })
 );
@@ -196,6 +201,5 @@ app.all("*", (req, res, next) => {
 
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Something went wrong!" } = err;
-  // res.status(statusCode).send(message);
   res.status(statusCode).render("error.ejs", { err });
 });

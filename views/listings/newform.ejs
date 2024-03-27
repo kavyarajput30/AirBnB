@@ -1,7 +1,7 @@
 <% layout('/layouts/boilerplate') -%>
 <body>
   <h2 id="newplace-heading">New Place</h2>
-  <form action="/listing" method="post"  class="needs-validation">
+  <form action="/listing" method="post" novalidate class="needs-validation">
     <div class="newform-field">
       <label for="title">Title</label>
       <input type="text" name="listing[title]" id="title" required />
@@ -11,13 +11,12 @@
     <div class="newform-field">
       <label for="image">Image</label>
       <input type="url" name="listing[image]" id="image"/>
-      <div class="valid-feedback">Title Looks good!</div>
-      <div class="invalid-feedback">Please choose a Title.</div>
     </div>
 
     <div class="newform-field">
       <label for="description">Description</label>
       <textarea
+      style="min-height: 25px;"
         name="listing[description]"
         cols="30"
         rows="5"
@@ -53,3 +52,4 @@
     <button class="add-btn" type="submit">ADD</button>
   </form>
 </body>
+<!-- <script src="/JavaScript/script.js"></script> -->
