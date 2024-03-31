@@ -3,8 +3,7 @@ const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listening.js");
-const Reviews = require("../models/review.js");
-const { listingSchema, reviewSchema } = require("../schema.js");
+const { listingSchema} = require("../schema.js");
 
 const validateListing = (req, res, next) => {
     let { error } = listingSchema.validate(req.body);
@@ -39,6 +38,7 @@ router.get("/newPlace", (req, res) => {
 //add new listing form submit
 router.post(
     "/",
+    validateListing,
     wrapAsync(async (req, res, next) => {
       // let { title, description, price, location, country, image } = req.body;
       let listing = req.body.listing;
@@ -48,6 +48,7 @@ router.post(
       // console.log(listing);
       const list1 = new Listing(listing);
       await list1.save();
+      req.flash('success', 'New Listing Created Successfully');
       res.redirect("/listings");
     })
   );
@@ -59,7 +60,8 @@ router.post(
       let { id } = req.params;
       let a = await Listing.findById(`${id}`);
       if(!a){
-          throw new ExpressError('listing not found', 404);
+        req.flash('error', 'Listing not found');
+        res.redirect("/listings");
       }
       res.render("./listings/editform.ejs", { a });
     })
@@ -77,6 +79,7 @@ router.post(
         .catch((err) => {
           console.log(err);
         });
+      req.flash('success', 'Listing Deleted Successfully');
       res.redirect("/listings");
     })
   );
@@ -87,6 +90,10 @@ router.post(
     wrapAsync(async (req, res) => {
       let { id } = req.params;
       let a = await Listing.findById(`${id}`).populate("reviews");
+      if(!a){
+        req.flash('error', 'Listing not found');
+        res.redirect("/listings");
+      }
       res.render("./listings/show.ejs", { a });
     })
   );
@@ -102,6 +109,7 @@ router.post(
       await Listing.updateOne({ _id: id }, listing).then(() => {
         console.log("succsessfully updated");
       });
+      req.flash('success', 'Listing Updated Successfully');
       res.redirect(`/listings/${id}`);
     })
   );  

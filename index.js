@@ -5,14 +5,17 @@ const flash = require('connect-flash');
 app.use(express.static("public"));
 const mongoose = require("mongoose");
 const path = require("path");
-
 let ejsMate = require("ejs-mate");
 app.engine("ejs", ejsMate);
-
 const ExpressError = require("./utils/ExpressError.js");
+const passport = require("passport");
+const localStrategy = require("passport-local");
+const User = require("./models/user.js");
+
 
 const listings = require('./routes/listing.js');
 const review = require('./routes/review.js');
+const user = require('./routes/user.js');
 
 const sessionOptions = {
   secret: "mysuperSecretCode",
@@ -28,6 +31,13 @@ const sessionOptions = {
 
 app.use(session(sessionOptions));
 app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.listen(8080, () => {
   console.log("app is listening to port 8080");
@@ -51,10 +61,15 @@ async function main() {
 app.get("/", (req, res) => {
   res.send("Hii i am the root page");
 });
-
+app.use((req,res,next)=>{
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
+})
 
 app.use('/listings', listings);
 app.use('/listings/:id/reviews', review);
+app.use('/', user);
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found!"));
