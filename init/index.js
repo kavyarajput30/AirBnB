@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 const initdata = require("./data.js");
 const Listing = require("../models/listening.js");  // Corrected the file name
-
+const User = require("../models/user.js");
 
 
 main().then((res)=>{ console.log("connection successful with db")}).catch(err=>{console.log(err)});

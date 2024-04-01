@@ -2,12 +2,19 @@
 <body>
     <h1 style='text-align:center'><%= a.title %></h1> 
     <img src=<%= a.image.url  %> alt="" class="Place-img" style='border-radius: 10px'>
+    <p>User: <%=  a.owner.username%></p>
     <h4 style="background-color: rgb(252, 229, 229); border-radius: 10px;margin: 7px 0px; padding:13px 10px"><%= a.description %></h4>
     <h4> &#8377 <%= a.price.toLocaleString("en-IN") %></h4>
     <p>Location: <%= a.location %></p>
     <p>Country: <%= a.country %></p>
-    <button style="background-color: green; border-radius: 5px ; border: 1px solid rgb(125, 125, 125);" onclick="window.location.href='/listings/<%= a.id %>/edit'">Edit</button>
-    <button style="background-color: red; border-radius: 5px ; border: 1px solid rgb(125, 125, 125);" onclick="window.location.href='/listings/<%= a.id %>/delete'">Delete</button>
+
+    <% if ( currentUser && currentUser._id.equals(a.owner._id)) { %>
+        <button style="background-color: green; border-radius: 5px ; border: 1px solid rgb(125, 125, 125);" onclick="window.location.href='/listings/<%= a.id %>/edit'">Edit</button>
+        <button style="background-color: red; border-radius: 5px ; border: 1px solid rgb(125, 125, 125);" onclick="window.location.href='/listings/<%= a.id %>/delete'">Delete</button>
+    <% } %>
+    
+    
+   
     <hr>
     <div>
 
@@ -21,7 +28,7 @@
                    <div class="card col-4 ms-4" style="border: 1px solid black !important;">
                     <div class="card-body">
 <h5 class="card-title">
-Kavya Rajput
+    @<%= review.author.username %>   
 </h5>
 <p class="card-text">
     <%= review.comment %>
@@ -42,6 +49,7 @@ Kavya Rajput
 
 
         <hr>
+        <% if (currentUser) { %>
         <h3 style="text-align:center">Create a Review</h3>
         <form action="/listings/<%= a.id %>/reviews" novalidate  method="post">
             <div>
@@ -54,6 +62,7 @@ Kavya Rajput
             </div>
             <button>Add Review</button>
         </form>
+   <% } %>
         <hr> 
     </div>
     

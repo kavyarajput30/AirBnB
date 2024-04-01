@@ -11,6 +11,8 @@
 }
 .Place-img{
     width:400px;
+        height: 300px !important;
+        border-radius: 10px;
 }
 #listing-title{
      text-align: center;
