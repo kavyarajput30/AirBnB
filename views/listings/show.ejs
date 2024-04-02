@@ -1,53 +1,71 @@
 <% layout('/layouts/boilerplate') -%>
-<body>
+<style>
+    p{
+        padding:0px;
+        margin:0px;
+    }
+    #edit-btn{
+        background-color: rgb(1, 158, 1);
+        color: white;
+        border-radius: 5px;
+        border: 1px solid rgb(125, 125, 125);
+    }
+    #delete-btn{
+        background-color: rgb(230, 4, 4);
+        color: white;
+        border-radius: 5px;
+        border: 1px solid rgb(125, 125, 125);
+    }
+    .review-btn{
+margin-top: 15px;
+    }
+    .review-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 11px;
+        gap: 10px;
+    }
+</style>
+<body style="margin-bottom: 120px;">
     <h1 style='text-align:center'><%= a.title %></h1> 
     <img src=<%= a.image.url  %> alt="" class="Place-img" style='border-radius: 10px'>
-    <p>User: <%=  a.owner.username%></p>
-    <h4 style="background-color: rgb(252, 229, 229); border-radius: 10px;margin: 7px 0px; padding:13px 10px"><%= a.description %></h4>
-    <h4> &#8377 <%= a.price.toLocaleString("en-IN") %></h4>
+    <p>Owner: <%=a.owner.username%></p>
+    <h4> <%= a.description %> </h4>
+    <h4> &#8377 <%= a.price.toLocaleString("en-IN") %>/night</h4>
     <p>Location: <%= a.location %></p>
     <p>Country: <%= a.country %></p>
-    <p><%= a.category %></p>
+    <h5>Type: <%= a.category %> </h5>
     <% if ( currentUser && currentUser._id.equals(a.owner._id)) { %>
-        <button style="background-color: green; border-radius: 5px ; border: 1px solid rgb(125, 125, 125);" onclick="window.location.href='/listings/<%= a.id %>/edit'">Edit</button>
-        <button style="background-color: red; border-radius: 5px ; border: 1px solid rgb(125, 125, 125);" onclick="window.location.href='/listings/<%= a.id %>/delete'">Delete</button>
+        <button id="edit-btn" onclick="window.location.href='/listings/<%= a.id %>/edit'">Edit</button>
+        <button id="delete-btn" onclick="window.location.href='/listings/<%= a.id %>/delete'">Delete</button>
     <% } %>
-    
-    
-   
     <hr>
     <div>
 
 
         <div>
             <h3 style="text-align:center">All Review</h3>
-            <div class="row">
-
-           
-            <% for(review of a.reviews){ %>
-                   <div class="card col-4 ms-4" style="border: 1px solid black !important;">
-                    <div class="card-body">
-<h5 class="card-title">
-    @<%= review.author.username %>   
-</h5>
-
-
-
-    <p class="starability-result card-text" data-rating="<%= review.rating %>" >
-      </p>
-      <p class="card-text">
-        <%= review.comment %>
-    </p>
-    
-                   <form method="post" action="/listings/<%= a.id %>/reviews/<%= review._id %>">
-                        <button class="btn btn-danger btn-sm ">Delete</button>
-                    </form>
-                </div>
-                </div>   
-         <%  } %>
+            <div class="review-container">
+                <% if (a.reviews.length === 0) { %>
+                    <h6>Be the first to write a review</h6>
+                <% } else { %>
+                    <% for(review of a.reviews) { %>
+                        <div class="card col-4" style="border: 1px solid black !important; min-width:200px !important">
+                            <div class="card-body">
+                                <h5 class="card-title">@<%= review.author.username %></h5>
+                                <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
+                                <p class="card-text"><%= review.comment %></p>
+                                <form method="post" action="/listings/<%= a.id %>/reviews/<%= review._id %>">
+                                    <button class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </div>
+                        </div>   
+                    <% } %>
+                <% } %>
+            </div>
         </div>
-        </div>
-
 
 
         <hr>
@@ -55,7 +73,6 @@
         <h3 style="text-align:center">Create a Review</h3>
         <form action="/listings/<%= a.id %>/reviews" novalidate  method="post">
             <div>
-               
             <label for="rating" class="form-range">Rating:</label>
             <fieldset class="starability-slot">
                 <input type="radio" id="no-rate" class="input-no-rate" name="reviews[rating]" value="1" checked aria-label="No rating." />
@@ -71,11 +88,11 @@
                 <label for="first-rate5" title="Amazing">5 stars</label>
               </fieldset>
             </div>
-            <div>
-                <label for="comment">Comments</label>
-               <textarea name="reviews[comment]" required  id="comment" cols="30" rows="10" style="min-height: 150px;"></textarea>
+            <div class="form-group">
+                <label for="comment">Comment:</label>
+               <textarea name="reviews[comment]" required class="form-control" id="comment" rows="3" ></textarea>
             </div>
-            <button>Add Review</button>
+            <button class="btn btn-primary review-btn">Add Review</button>
         </form>
    <% } %>
         <hr> 

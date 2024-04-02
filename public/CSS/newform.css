@@ -1,24 +1,34 @@
+.newform{
+    width: 70vw;
+}
+@media screen and (max-width: 650px) {
+    .newform{
+width: 90vw;
+  }
+  }
+
 .newform-field{
     width: 100%;
-    /* background-color: indigo; */
     padding: 10px;
-    margin: 0px 0px 40px 0px;
+    margin: 0px 0px 10px 0px;
     height: 70px;
     display: flex;
     flex-direction: column;
 }
 
-.newform-field input,textarea{
-    width: 80%;
-
-}
 #newplace-heading{
     text-align: center;
 }
 
 .add-btn{
-    margin: auto;
    padding:5px 30px;
-   background-color: rgb(169, 219, 248);
+   font-size: 18px;
+   background-color: rgb(255, 75, 87);
    border-radius: 10px;
+   border: 1px solid rgb(255, 75, 87);
+   color: white;
+   cursor: pointer;
+   
+    margin-top: 20px;
+
 }

@@ -1,6 +1,6 @@
 <% layout('/layouts/boilerplate') -%>
-<body>
-  <h2>Edit Place</h2>
+<body style="margin-bottom: 120px;">
+  <h2 class="text-center">Edit Listing</h2>
   <form
     action="/listings/<%= a._id%>"
     method="post"
@@ -9,42 +9,40 @@
     enctype="multipart/form-data"
   >
     <div>
-      <label for="title">Title</label>
+      <label for="title" class="form-label">Title</label>
       <input
         type="text"
         name="listing[title]"
         id="title"
         value="<%= a.title %>"
         required
+        class="form-control"
       />
       <div class="invalid-feedback">Please choose valid input</div>
     </div>
-
-    <br />
-    <br />
+<br/>
 
 <div>
  <p>Original Image</p> 
 <img src="<%= originalImage %>" alt="" class="Place-img">
 </div>
-<br>
-<br>
 
+<br/>
     <div>
-      <label for="image">Upload New Image</label>
+      <label for="image" class="form-label">Upload New Image</label>
       <input
         type="file"
         name="listing[image]"
         id="image"
+        class="form-control"
       />
     </div>
-    <br>
-    <br>
-
-
+    <br/>
 <div>
-  <label>Category</label>
-  <select name="listing[category]" id="category">
+
+
+  <label for="category" class="form-label">Category</label>
+  <select name="listing[category]" id="category" class="form-select">
     <option value="">Select Category</option>
     <option value="Beach" <%= a.category === 'Beach' ? 'selected' : '' %>>Beach</option>
     <option value="Arctic" <%= a.category === 'Arctic' ? 'selected' : '' %>>Arctic</option>
@@ -64,72 +62,76 @@
     <option value="Creative spaces" <%= a.category === 'Creative spaces' ? 'selected' : '' %>>Creative spaces</option>
     <option value="Gardens" <%= a.category === 'Gardens' ? 'selected' : '' %>>Gardens</option>
     <option value="Other" <%= a.category === 'Other' ? 'selected' : '' %>>Other</option>
+  </select>
 </div>
-
-<br>
-<br>
-
-
+<br/>
     <div>
-      <label for="description">description</label>
+      <label for="description" class="form-label">Description</label>
       <textarea
         name="listing[description]"
-        cols="30"
-        rows="10"
+        rows="3"
         id="description"
         required
+        class="form-control"
       >
- <%= a.description %> </textarea
-      >
+       <%= a.description %> </textarea>
       <div class="invalid-feedback">Please choose a valid Input.</div>
     </div>
 
-    <br />
-    <br />
+
+
+    <br/>
     <div>
-      <label for="price">Price</label>
+      <label for="price" class="form-label">Price</label>
       <input
         type="number"
         id="price"
         name="listing[price]"
         value="<%= a.price %>"
         required
+        class="form-control"
       />
       <div class="invalid-feedback">Please choose a valid Input.</div>
     </div>
 
-    <br />
-    <br />
 
+    <br/>
     <div>
-      <label for="location">Location</label>
+      <label for="location" class="form-label">Location</label>
       <input
         type="text"
         name="listing[location]"
         id="location"
         value="<%= a.location  %>"
         required
+        class="form-control"
       />
       <div class="invalid-feedback">Please choose a valid Input.</div>
     </div>
 
-    <br />
-    <br />
+    <br/>
+
 
     <div>
-      <label for="country">Country</label>
+      <label for="country" class="form-label">Country</label>
       <input
         type="text"
         name="listing[country]"
         id="country"
         value=" <%= a.country %>"
         required
+        class="form-control"
       />
       <div class="invalid-feedback">Please choose a valid Input.</div>
     </div>
 
-    <br />
-    <br />
-    <button>Edit</button>
+
+
+    <br/>
+
+
+
+
+    <button type="submit" class="btn btn-success">Edit</button>
   </form>
 </body>

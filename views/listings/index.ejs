@@ -38,8 +38,9 @@
   .tax-info{
     display: none;
   }
+
+
  </style>
-  <!-- <h1 class="heading">All Listings</h1> -->
 <div id="filters">
 <div class="filter">
 <i class="fa-solid fa-fire"></i>
@@ -120,38 +121,18 @@
   <label class="form-check-label" for="flexSwitchCheckDefault">Show taxes and fees</label>
 </div>
       </div>
-
-
-
 </div>
-  <div class="card d-flex flex-row flex-wrap justify-content-between">
+  <div class="card-container">
     <% for (let listing of result) { %>
       <a href="/listings/<%=listing._id%>" class="text-decoration-none">
         <div class="wrapper">
           <img src="<%= listing.image.url %>" alt="" class="card-img" />
 
-         
-
           <div id="card-content">
             <p id="listing-title">
               <%= listing.title %>
             </p>
-            <p><%= listing.owner.username %></p>
             <p id="listing-price">&#8377 <%= listing.price.toLocaleString("en-IN") %>/night <i class="tax-info">+18% GST</i></p>
-
-            <% if(currentUser && currentUser._id.equals(listing.owner._id)) { %>
-              <div class="card-buttons">
-                  <form action="/listings/<%= listing._id %>/edit" method="get">
-                      <button>Edit</button>
-                  </form>
-          
-                  <form action="/listings/<%= listing._id %>/delete" method="get">
-                      <button>Delete</button>
-                  </form>
-              </div>
-          <% } %>
-            
-
           </div>
 
         </div>
