@@ -1,6 +1,10 @@
+if(process.env.NODE_ENV !== "production"){
+  require('dotenv').config();
+}
 const express = require("express");
 const app = express();
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require('connect-flash');
 app.use(express.static("public"));
 const mongoose = require("mongoose");
@@ -16,9 +20,24 @@ const User = require("./models/user.js");
 const listings = require('./routes/listing.js');
 const review = require('./routes/review.js');
 const user = require('./routes/user.js');
+const dbURL= process.env.ATLAS_URL;
+
+const store = MongoStore.create({
+  mongoUrl: dbURL,
+  crypto: {
+    secret: process.env.SECRET,
+
+  },
+  touchAfter: 24 * 3600 // 24 hours,
+});
+
+store.on('error', (err) =>{
+  console.log("session store error" , err);
+})
 
 const sessionOptions = {
-  secret: "mysuperSecretCode",
+  store,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -27,6 +46,7 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
+
 
 
 app.use(session(sessionOptions));
@@ -46,6 +66,7 @@ app.listen(8080, () => {
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ express: true }));
+
 app.use(express.json());
 
 main()
@@ -56,7 +77,7 @@ main()
     console.log(err);
   });
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/majorproject");
+  await mongoose.connect(dbURL);
 }
 app.get("/", (req, res) => {
   res.send("Hii i am the root page");

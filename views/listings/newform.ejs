@@ -1,7 +1,7 @@
 <% layout('/layouts/boilerplate') -%>
 <body>
   <h2 id="newplace-heading">New Place</h2>
-  <form action="/listings" method="post" novalidate class="needs-validation">
+  <form action="/listings" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
     <div class="newform-field">
       <label for="title">Title</label>
       <input type="text" name="listing[title]" id="title" required />
@@ -9,10 +9,36 @@
       <div class="invalid-feedback">Please choose a Title.</div>
     </div>
     <div class="newform-field">
-      <label for="image">Image</label>
-      <input type="url" name="listing[image]" id="image"/>
+      <label for="image">Upload Image</label>
+      <input type="file" name="listing[image]" id="image"/>
     </div>
 
+<div class="newform-field">
+  <label for="category">Select Category</label>
+  <select name="listing[category]" id="category" required>
+    <option value="">Select Category</option>
+    <option value="Beach">Beach</option>
+    <option value="Arctic">Arctic</option>
+    <option value="Mountain">Mountain</option>
+    <option value="Boats">Boats</option>
+    <option value="Farms">Farms</option>
+    <option value="Caravan">Caravan</option>
+    <option value="Camps">Camps</option>
+    <option value="Historical Landmark">Historical Landmark</option>
+    <option value="Rooms">Rooms</option>
+    <option value="Hostel">Hostel</option>
+    <option value="Hotel">Hotel</option>
+    <option value="Resort">Resort</option>
+    <option value="Villas">Villas</option>
+    <option value="Deserts">Deserts</option>
+    <option value="Domes">Domes</option>
+    <option value="Creative spaces">Creative spaces</option>
+    <option value="Gardens">Gardens</option>
+    <option value="Other">Other</option>
+  </select>
+  <div class="valid-feedback">Category is valid</div>
+  <div class="invalid-feedback">Please add valid Category.</div>
+</div>
     <div class="newform-field">
       <label for="description">Description</label>
       <textarea

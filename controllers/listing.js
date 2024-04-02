@@ -26,6 +26,10 @@ module.exports.getNewListingForm = (req, res) => {
 };
 
 module.exports.addNewListing = wrapAsync(async (req, res, next) => {
+  let url = req.file.path;
+  let filename = req.file.filename;
+  console.log('url is ' + url );
+  console.log('filename is ' + filename );
   // let { title, description, price, location, country, image } = req.body;
   let listing = req.body.listing;
   if (!listing) {
@@ -34,6 +38,7 @@ module.exports.addNewListing = wrapAsync(async (req, res, next) => {
   // console.log(listing);
   const list1 = new Listing(listing);
   list1.owner = res.locals.currentUser._id;
+  list1.image = { url, filename };
   await list1.save();
   req.flash("success", "New Listing Created Successfully");
   res.redirect("/listings");
@@ -46,14 +51,21 @@ module.exports.getEditForm = wrapAsync(async (req, res) => {
     req.flash("error", "Listing not found");
     res.redirect("/listings");
   }
-  res.render("./listings/editform.ejs", { a });
+let originalImage= a.image.url;
+ originalImage = originalImage.replace('/upload','/upload/h_200,w_220');
+
+  res.render("./listings/editform.ejs", { a , originalImage });
 });
 
 module.exports.editListing = wrapAsync(async (req, res) => {
   let { id } = req.params;
   let listing = req.body.listing;
-  //  console.log( "Request user" + req.user );
-  await Listing.updateOne({ _id: id }, listing)
+  if(typeof req.file !== 'undefined') {
+    let url = req.file.path;
+    let filename = req.file.filename;
+    listing.image = { url, filename };
+  }
+  await Listing.updateOne({ _id: id }, listing, { new: true })
     .then(() => {
       console.log("succsessfully updated");
     })

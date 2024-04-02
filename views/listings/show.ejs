@@ -7,7 +7,7 @@
     <h4> &#8377 <%= a.price.toLocaleString("en-IN") %></h4>
     <p>Location: <%= a.location %></p>
     <p>Country: <%= a.country %></p>
-
+    <p><%= a.category %></p>
     <% if ( currentUser && currentUser._id.equals(a.owner._id)) { %>
         <button style="background-color: green; border-radius: 5px ; border: 1px solid rgb(125, 125, 125);" onclick="window.location.href='/listings/<%= a.id %>/edit'">Edit</button>
         <button style="background-color: red; border-radius: 5px ; border: 1px solid rgb(125, 125, 125);" onclick="window.location.href='/listings/<%= a.id %>/delete'">Delete</button>
@@ -30,12 +30,14 @@
 <h5 class="card-title">
     @<%= review.author.username %>   
 </h5>
-<p class="card-text">
-    <%= review.comment %>
-</p>
-<p class="card-text">
-    Rating:<%= review.rating %>
-</p>
+
+
+
+    <p class="starability-result card-text" data-rating="<%= review.rating %>" >
+      </p>
+      <p class="card-text">
+        <%= review.comment %>
+    </p>
     
                    <form method="post" action="/listings/<%= a.id %>/reviews/<%= review._id %>">
                         <button class="btn btn-danger btn-sm ">Delete</button>
@@ -53,8 +55,21 @@
         <h3 style="text-align:center">Create a Review</h3>
         <form action="/listings/<%= a.id %>/reviews" novalidate  method="post">
             <div>
-                <label for="rating" class="form-range">Rating</label>
-                <input type="range" name="reviews[rating]" id="rating" min="1" max="5" >
+               
+            <label for="rating" class="form-range">Rating:</label>
+            <fieldset class="starability-slot">
+                <input type="radio" id="no-rate" class="input-no-rate" name="reviews[rating]" value="1" checked aria-label="No rating." />
+                <input type="radio" id="first-rate1" name="reviews[rating]" value="1" />
+                <label for="first-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="first-rate2" name="reviews[rating]" value="2" />
+                <label for="first-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="first-rate3" name="reviews[rating]" value="3" />
+                <label for="first-rate3" title="Average">3 stars</label>
+                <input type="radio" id="first-rate4" name="reviews[rating]" value="4" />
+                <label for="first-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="first-rate5" name="reviews[rating]" value="5" />
+                <label for="first-rate5" title="Amazing">5 stars</label>
+              </fieldset>
             </div>
             <div>
                 <label for="comment">Comments</label>

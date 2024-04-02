@@ -12,21 +12,25 @@ const {
   deleteListing,
 } = require("../controllers/listing.js");
 
+const multer = require("multer");
+const {storage} = require('../cloudConfig.js');
+const upload = multer({ storage });
 //index route where all the listings are present
-router.get("/", getAllListing);
+router.route('/')
+.get(getAllListing)
+.post( isLoggedIn, upload.single("listing[image]"),validateListing,addNewListing);
+
+
 //get on the  add new listing form new route
 router.get("/newPlace", isLoggedIn, getNewListingForm);
 //show route
-router.get("/:id", getParticularlisting);
 
-//add new listing form submit
-router.post("/",isLoggedIn, validateListing, addNewListing);
+router.route("/:id")
+.get( getParticularlisting)
+.post( isLoggedIn, isOwner, upload.single("listing[image]"),validateListing, editListing);
 
 //edit form route where we can edit a particular listing
 router.get("/:id/edit", isLoggedIn, isOwner, getEditForm);
-
-//edit the listing in  form confrim button route
-router.post("/:id", isLoggedIn, isOwner, validateListing, editListing);
 
 //delete route
 router.get("/:id/delete", isLoggedIn, isOwner, deleteListing);

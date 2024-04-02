@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="fa-brands fa-airbnb"></i></a>
+    <a class="navbar-brand" href="/listings"><i class="fa-brands fa-airbnb"></i></a>
     <button
       class="navbar-toggler"
       type="button"
@@ -19,12 +19,9 @@
     >
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="/listings">Home</a>
+          <a class="nav-link" aria-current="page" href="/listings">Explore</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/listings/newPlace">Add New Place</a>
-        </li>
       </ul>
       <div>
         <form class="d-flex mb-2" role="search">
@@ -38,16 +35,19 @@
         </form>
       </div>
       <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item" >
+          <a class="nav-link" href="/listings/newPlace">Airbnb your home</a>
+        </li>
         <% if (!currentUser) { %>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/signup">SignUp</a>
+            <a class="nav-link" aria-current="page" href="/signup"><b>SignUp</b></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link" href="/login"><b>Login</b></a>
           </li>
         <% } else { %>
           <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
+            <a class="nav-link" href="/logout"><b>Logout</b></a>
           </li>
         <% } %>
       </ul>

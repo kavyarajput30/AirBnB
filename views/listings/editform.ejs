@@ -6,6 +6,7 @@
     method="post"
     novalidate
     class="needs-validation"
+    enctype="multipart/form-data"
   >
     <div>
       <label for="title">Title</label>
@@ -21,6 +22,53 @@
 
     <br />
     <br />
+
+<div>
+ <p>Original Image</p> 
+<img src="<%= originalImage %>" alt="" class="Place-img">
+</div>
+<br>
+<br>
+
+    <div>
+      <label for="image">Upload New Image</label>
+      <input
+        type="file"
+        name="listing[image]"
+        id="image"
+      />
+    </div>
+    <br>
+    <br>
+
+
+<div>
+  <label>Category</label>
+  <select name="listing[category]" id="category">
+    <option value="">Select Category</option>
+    <option value="Beach" <%= a.category === 'Beach' ? 'selected' : '' %>>Beach</option>
+    <option value="Arctic" <%= a.category === 'Arctic' ? 'selected' : '' %>>Arctic</option>
+    <option value="Mountain" <%= a.category === 'Mountain' ? 'selected' : '' %>>Mountain</option>
+    <option value="Boats" <%= a.category === 'Boats' ? 'selected' : '' %>>Boats</option>
+    <option value="Farms" <%= a.category === 'Farms' ? 'selected' : '' %>>Farms</option>
+    <option value="Caravan" <%= a.category === 'Caravan' ? 'selected' : '' %>>Caravan</option>
+    <option value="Camps" <%= a.category === 'Camps' ? 'selected' : '' %>>Camps</option>
+    <option value="Historical Landmark" <%= a.category === 'Historical Landmark' ? 'selected' : '' %>>Historical Landmark</option>
+    <option value="Rooms" <%= a.category === 'Rooms' ? 'selected' : '' %>>Rooms</option>
+    <option value="Hostel" <%= a.category === 'Hostel' ? 'selected' : '' %>>Hostel</option>
+    <option value="Hotel" <%= a.category === 'Hotel' ? 'selected' : '' %>>Hotel</option>
+    <option value="Resort" <%= a.category === 'Resort' ? 'selected' : '' %>>Resort</option>
+    <option value="Villas" <%= a.category === 'Villas' ? 'selected' : '' %>>Villas</option>
+    <option value="Deserts" <%= a.category === 'Deserts' ? 'selected' : '' %>>Deserts</option>
+    <option value="Domes" <%= a.category === 'Domes' ? 'selected' : '' %>>Domes</option>
+    <option value="Creative spaces" <%= a.category === 'Creative spaces' ? 'selected' : '' %>>Creative spaces</option>
+    <option value="Gardens" <%= a.category === 'Gardens' ? 'selected' : '' %>>Gardens</option>
+    <option value="Other" <%= a.category === 'Other' ? 'selected' : '' %>>Other</option>
+</div>
+
+<br>
+<br>
+
 
     <div>
       <label for="description">description</label>
