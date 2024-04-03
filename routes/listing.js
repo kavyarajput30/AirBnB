@@ -11,6 +11,7 @@ const {
   editListing,
   deleteListing,
   selectedListing,
+  searchedListing,
 } = require("../controllers/listing.js");
 
 const multer = require("multer");
@@ -21,7 +22,7 @@ router.route('/')
 .get(getAllListing)
 .post( isLoggedIn, upload.single("listing[image]"),validateListing,addNewListing);
 
-
+router.post('/search', searchedListing);
 //get on the  add new listing form new route
 router.get("/newPlace", isLoggedIn, getNewListingForm);
 

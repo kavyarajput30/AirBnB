@@ -23,14 +23,15 @@
 
       </ul>
       <div>
-        <form class="d-flex mb-2" role="search">
+        <form class="d-flex mb-2" role="search" action="/listings/search" method="post">
           <input
-            class="form-control me-2"
+            class="form-control me-2 rounded-pill"
             type="search"
             placeholder="Search"
             aria-label="Search"
+            name="search"
           />
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <button class="btn btn-outline-success rounded-pill px-3" type="submit">Search</button>
         </form>
       </div>
       <ul class="navbar-nav mb-2 mb-lg-0">

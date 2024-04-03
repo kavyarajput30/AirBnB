@@ -109,4 +109,24 @@ module.exports.selectedListing = wrapAsync(async (req, res) => {
 
  res.render("./listings/index.ejs", { result });
 
+});
+
+module.exports.searchedListing = wrapAsync(async (req, res) => {
+  let searchbody = req.body.search;
+  const searchRegex = new RegExp(searchbody, 'i'); 
+  let result = await Listing.find({
+    $or: [
+        { title: { $regex: searchRegex } },
+        { description: { $regex: searchRegex } },
+        { location: { $regex: searchRegex } },
+        { country: { $regex: searchRegex } },
+        { category: { $regex: searchRegex } }
+    ]
+}).populate("owner");
+if(result.length==0){
+  req.flash("error", "No Listing found related to your search");
+  return res.redirect("/listings");
+}
+res.render("./listings/index.ejs", { result });
 })
+
