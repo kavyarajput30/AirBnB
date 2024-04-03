@@ -10,6 +10,7 @@ const {
   getEditForm,
   editListing,
   deleteListing,
+  selectedListing,
 } = require("../controllers/listing.js");
 
 const multer = require("multer");
@@ -23,7 +24,9 @@ router.route('/')
 
 //get on the  add new listing form new route
 router.get("/newPlace", isLoggedIn, getNewListingForm);
-//show route
+
+// get selected listing
+router.get('/selected', selectedListing);
 
 router.route("/:id")
 .get( getParticularlisting)
@@ -34,5 +37,6 @@ router.get("/:id/edit", isLoggedIn, isOwner, getEditForm);
 
 //delete route
 router.get("/:id/delete", isLoggedIn, isOwner, deleteListing);
+
 
 module.exports = router;

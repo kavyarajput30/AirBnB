@@ -1,12 +1,11 @@
 
-
 if(process.env.NODE_ENV !== "production"){
   require('dotenv').config();
 }
 const express = require("express");
 const app = express();
 const session = require("express-session");
-const MongoStore = require("connect-mongo");
+const MongoStore = require("connect-mongo");  
 const flash = require('connect-flash');
 app.use(express.static("public"));
 const mongoose = require("mongoose");
@@ -61,14 +60,13 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+
 app.listen(8080, () => {
   console.log("app is listening to port 8080");
 });
-
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ express: true }));
-
 app.use(express.json());
 
 main()
@@ -81,9 +79,6 @@ main()
 async function main() {
   await mongoose.connect(dbURL);
 }
-app.get("/", (req, res) => {
-  res.send("Hii i am the root page");
-});
 app.use((req,res,next)=>{
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');

@@ -13,7 +13,7 @@ module.exports.getParticularlisting = wrapAsync(async (req, res) => {
   let a = await Listing.findById(`${id}`)
     .populate({ path: "reviews", populate: { path: "author" } })
     .populate("owner");
-  console.log(a.reviews[0]);
+  // console.log(a.reviews[0]);
   if (!a) {
     req.flash("error", "Listing not found");
     res.redirect("/listings");
@@ -28,8 +28,8 @@ module.exports.getNewListingForm = (req, res) => {
 module.exports.addNewListing = wrapAsync(async (req, res, next) => {
   let url = req.file.path;
   let filename = req.file.filename;
-  console.log('url is ' + url );
-  console.log('filename is ' + filename );
+  // console.log('url is ' + url );
+  // console.log('filename is ' + filename );
   // let { title, description, price, location, country, image } = req.body;
   let listing = req.body.listing;
   if (!listing) {
@@ -88,3 +88,25 @@ module.exports.deleteListing = wrapAsync(async (req, res) => {
   req.flash("success", "Listing Deleted Successfully");
   res.redirect("/listings");
 });
+
+
+module.exports.selectedListing = wrapAsync(async (req, res) => {
+
+  let { filter } = req.query;
+  if(!filter){
+
+    let result = await Listing.find({});
+    req.flash("error", "No Listing found with this category");
+  return res.render("./listings/index.ejs", { result });
+
+  }
+  // let value= 'Hotel';
+  let result = await Listing.find({category: filter});
+  if(result.length==0){
+   req.flash("error", "No Listing found");
+  return res.redirect("/listings");
+  }
+
+ res.render("./listings/index.ejs", { result });
+
+})

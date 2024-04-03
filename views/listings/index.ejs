@@ -1,29 +1,39 @@
 <% layout('/layouts/boilerplate') -%>
 <body>
  <style>
-  .filter{
+  .filter {
     margin-top: 2rem;
-    /* background-color: rgb(221, 255, 0); */
     text-align: center;
-    margin-right: 2rem;
     opacity: 0.7;
+    flex: 0 0 auto;
+    width: 100px; 
+    height: 80px; 
   }
   .filter:hover{
     opacity: 1;
     cursor: pointer;
   }
   .filter p{
+
    font-size: 0.8rem;
   }
+
   #filters{
     display: flex;
-    flex-wrap: wrap;
-     /* background-color: red; */
-    /* margin-top: 20px; */ 
+    flex-wrap: nowrap;
+     max-width: 65vw;
+     transition: transform 0.3s ease-in-out; 
   }
+  .slider-container {
+    width:65vw;
+  overflow: hidden;
+  position: relative;
+}
 
   .tax-toggle{
     margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-left: 1rem;
     border:1px solid rgb(183, 183, 183);
     border-radius: 15px;
     display: flex;
@@ -31,6 +41,7 @@
     justify-content: center;
     padding: 5px;
     font-size: 1rem;
+    width: 16vw;
   }
   .tax-toggle:hover{
     border-color: rgb(0, 0, 0);
@@ -38,90 +49,140 @@
   .tax-info{
     display: none;
   }
+  #head-container{
+    display: flex;
+    justify-content: space-between;
+  }
+  .prev-btn,
+.next-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1000;
+}
 
+.prev-btn {
+  left: 0;
+}
 
+.next-btn {
+  right: 0;
+}
+.option-container{
+  display: flex;
+}
+
+@media screen and (max-width: 990px) {
+  #head-container{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .tax-toggle{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    width: 50%;
+  }
+
+}
  </style>
-<div id="filters">
-<div class="filter">
-<i class="fa-solid fa-fire"></i>
-<p>Trending</p>
-</div>
-<div class="filter">
-  <i class="fa-solid fa-bed"></i>
-  <p>Rooms</p>
-  </div>
-  <div class="filter">
-    <i class="fa-solid fa-landmark"></i>
-    <p>Historical landmark</p>
+ <div id="head-container">
+  <div class="option-container">
+  <button class="prev-btn"><i class="fa-solid fa-chevron-left"></i></button>
+  <div class="slider-container">
+   
+  <div id="filters" onclick="handleFilterClick(event)" >
+    <div class="filter">
+      <i class="fa-solid fa-building"></i>
+      <p name="Hotel">Hotel</p>
     </div>
     <div class="filter">
-      <i class="fa-solid fa-umbrella-beach"></i>
-      <p>Beach</p>
-      </div>
-      <div class="filter">
-        <i class="fa-solid fa-snowflake"></i>
-        <p>Arctic</p>
-        </div>  
-        <div class="filter">
-          <i class="fa-solid  fa-mountain"></i>
-          <p>Mountain</p>
-          </div>
-
-          <div class="filter">
-          <i class="fa-solid fa-sailboat"></i>
-          <p>Boats</p>
-        </div>
-
-        <div class="filter">
-        <i class="fa-solid fa-palette"></i>
-        <p>Creative spaces</p>
-      </div>
-
-
-      <!-- <div class="filter">
-      <i class="fa-solid fa-person-skiing"></i>
-      <p>Ski-in/out</p>
-    </div> -->
-    <!-- <div class="filter">
-    <i class="fa-solid fa-building"></i>
-    <p>Iconic cities</p>
-  </div> -->
-  <!-- <div class="filter">
-  <i class="fa-solid fa-mountain-sun"></i>
-  <p>Amazing views</p>
-  </div> -->
-
-  <!-- <div class="filter">
-    <i class="fa-brands fa-fort-awesome"></i>
-    <p>Castel</p>
-    </div> -->
-
-    <div class="filter">
-      <i class="fa-solid fa-person-swimming"></i>
-      <p>Amazing pools</p>
+      <i class="fa-solid fa-house"></i>
+      <p name="Villa">Villa</p>
       </div>
 
       <div class="filter">
-        <i class="fa-solid fa-cow"></i>
-        <p>Farms</p>
-        </div>   
-        <div class="filter">
-          <i class="fa-solid fa-tent"></i>
-        <p>Camping</p>
-      </div> 
+        <i class="fa-solid fa-sailboat"></i>
+        <p name="Boats">Boats</p>
+      </div>
 
       <div class="filter">
         <i class="fa-solid fa-caravan"></i>
-        <p>Caravan</p>
+        <p name="Caravan">Caravan</p>
       </div> 
-      
-      <div class="tax-toggle">
-<div class="form-check-reverse form-switch">
-  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" role="switch">
-  <label class="form-check-label" for="flexSwitchCheckDefault">Show taxes and fees</label>
-</div>
+
+     
+        <div class="filter">
+          <i class="fa-solid fa-umbrella-beach"></i>
+          <p name="Beach">Beach</p>
+          </div>
+          <div class="filter">
+            <i class="fa-solid fa-snowflake"></i>
+            <p name="Arctic">Arctic</p>
+            </div>  
+            <div class="filter">
+              <i class="fa-solid  fa-mountain"></i>
+              <p name="Mountain">Mountain</p>
+              </div>
+    
+             
+    
+            <div class="filter">
+            <i class="fa-solid fa-palette"></i>
+            <p name="Creative spaces">Creative spaces</p>
+          </div>
+    
+    
+          <div class="filter">
+          <i class="fa-solid fa-person-skiing"></i>
+          <p name="Ski-in/out">Ski-in/out</p>
+        </div> 
+        
+      <div class="filter">
+      <i class="fa-solid fa-mountain-sun"></i>
+      <p name="Views">Amazing views</p>
       </div>
+    
+      <div class="filter">
+        <i class="fa-brands fa-fort-awesome"></i>
+        <p name="Castel">Castel</p>
+        </div>
+    
+        <div class="filter">
+          <i class="fa-solid fa-person-swimming"></i>
+          <p name="Pools">Amazing pools</p>
+          </div>
+    
+          <div class="filter">
+            <i class="fa-solid fa-cow"></i>
+            <p name="Farms">Farms</p>
+            </div>   
+            <div class="filter">
+              <i class="fa-solid fa-tent"></i>
+            <p name="Camping">Camping</p>
+          </div> 
+    
+          <div class="filter">
+            <i class="fa-solid fa-landmark"></i>
+            <p name="Historical Landmark">Historical landmark</p>
+            </div>
+          
+    </div>
+   
+  </div>
+  <button class="next-btn"><i class="fa-solid fa-chevron-right"></i></button>
 </div>
+    <div class="tax-toggle">
+      <div class="form-check-reverse form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" role="switch">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Show taxes and fees</label>
+      </div>
+            </div>
+
+ </div>
+
+
   <div class="card-container">
     <% for (let listing of result) { %>
       <a href="/listings/<%=listing._id%>" class="text-decoration-none">
@@ -139,30 +200,46 @@
       </a>
     <% } %>
   </div>
+  <script src="/javaScript/taxtoggle.js"></script>
 </body>
 
+
+
+
+
+
+
+
+
 <script>
-let taxSwitch= document.getElementById("flexSwitchCheckDefault");
-taxSwitch.addEventListener('click', ()=>{
-  let taxInfo = document.getElementsByClassName("tax-info");
-for(info of taxInfo){
-  if(info.style.display != "inline"){
-    info.style.display =  "inline";
-  }else{
-    info.style.display =  "none";
-  }
+    function handleFilterClick(event) {
+      let val;
+      if (event.target.tagName === 'P') {
+        val = event.target.textContent;
+      } else if (event.target.tagName === 'I') {
+        val = event.target.nextSibling.nextSibling.textContent;
+      }else {
+        event.stopPropagation();
+        return;
+      }
 
-}})
+      const form = document.createElement('form');
+      form.action = "/listings/selected";
+      form.method = "get";
+
+      const hiddenInput = document.createElement('input');
+      hiddenInput.type = 'hidden';
+      hiddenInput.name = 'filter';
+      hiddenInput.value = val;
+
+      form.appendChild(hiddenInput);
+      document.body.appendChild(form);
+
+      form.submit();
+
+    
+    }
 </script>
-
-
-
-
-
-
-
-
-
 
 
 

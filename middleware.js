@@ -26,7 +26,6 @@ module.exports.isOwner = async (req, res,next)=>{
 let {id} = req.params;
 let list = await Listing.findById(id);
 if (!list.owner.equals(res.locals.currentUser._id)) {
-  console.log("You are not authorized to perform this action");
   req.flash("error", "You are not authorized to perform this action");
   return res.redirect(`/listings/${id}`);
 }
@@ -55,7 +54,6 @@ module.exports.validateListing = (req, res, next) => {
 
 module.exports.validateReview = (req, res, next) => {
   let { error } = reviewSchema.validate(req.body);
-
   if (error) {
     let errMsg = error.details
       .map((el) => {
@@ -68,7 +66,6 @@ module.exports.validateReview = (req, res, next) => {
   }
 };
 
-
 module.exports.isAuthor = async (req, res,next)=>{
   let {reviewId,id} = req.params;
   let review = await Reviews.findById(reviewId);
@@ -78,3 +75,11 @@ module.exports.isAuthor = async (req, res,next)=>{
   }
   next();
   }
+
+  module.exports.isLoggedInForReview = (req,res,next) =>{
+    if(!req.isAuthenticated()){
+        req.flash('error', 'Please Login First');
+      return res.redirect('/login');
+      }
+    next();  
+}  

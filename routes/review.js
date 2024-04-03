@@ -1,7 +1,7 @@
 
 const express = require("express");
 const router = express.Router({ mergeParams: true });
-const { validateReview, isLoggedIn, isAuthor } = require("../middleware.js");
+const { validateReview, isLoggedIn, isAuthor,isLoggedInForReview } = require("../middleware.js");
 const {AddReview, deleteReview} = require('../controllers/review.js');
 
 
@@ -16,7 +16,7 @@ router.post(
 //delete route of review
 router.post(
   "/:reviewId",
-  isLoggedIn,
+  isLoggedInForReview,
   isAuthor,
   deleteReview
 );

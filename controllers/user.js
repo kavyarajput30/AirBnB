@@ -1,17 +1,13 @@
 const wrapAsync = require("../utils/wrapAsync.js");
 const User = require('../models/user.js');
-
 module.exports.getSignUpForm =  (req, res) => {
     res.render("./users/signup.ejs");
   }
-
 module.exports.signUp = wrapAsync(async (req, res) => {
     try {
       let { email, username, password } = req.body;
-
       const newUser = new User({ email, username });
       const registerUser = await User.register(newUser, password);
-  
       if(!registerUser){
         throw new Error('Something went wrong');
       }
@@ -20,7 +16,6 @@ module.exports.signUp = wrapAsync(async (req, res) => {
         if (err) {
           return next(err);
         }
-        // Redirect only after login is confirmed
         req.flash("success", "User Logged In successfully");
         res.redirect("/listings");
       });
