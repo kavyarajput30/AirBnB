@@ -12,6 +12,8 @@ This web application project is built using Express.js, MongoDB, and related tec
 - ◉ **Create Listings**: Users can create new listings by filling out a form, including uploading images.
 - ◉ **Edit Listings**: Editing and updating existing listings is supported, including modifying details and images.
 - ◉ **Delete Listings**: Listings can be deleted from the system when no longer needed.
+- ◉ **Search functionality**: Users can serch by country name, keyword, type etc.
+- ◉ **Filter Listings**: Filter listings based on filters giving.
 
 ### Review System:
 
